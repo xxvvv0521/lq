@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>生日快乐🎂 | 专属祝福</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <script>
+        // Tailwind 配置
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        birthday: {
+                            pink: '#FF6B8B',
+                            yellow: '#FFD166',
+                            blue: '#06D6A0',
+                            purple: '#7928CA',
+                            light: '#FFF9E8'
+                        },
+                    },
+                    fontFamily: {
+                        birthday: ['Comic Sans MS', 'cursive', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+    <style type="text/tailwindcss">
+        @layer utilities {
+            .text-shadow {
+                text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+            }
+            .animate-float {
+                animation: float 3s ease-in-out infinite;
+            }
+            .animate-bounce-slow {
+                animation: bounce 3s ease-in-out infinite;
+            }
+            .animate-spin-slow {
+                animation: spin 8s linear infinite;
+            }
+            .animate-candle {
+                animation: candle 1.5s ease-in-out infinite alternate;
+            }
+            .animate-confetti {
+                animation: confetti 5s ease-in-out infinite;
+            }
+            .animate-snow {
+                animation: snowfall linear infinite;
+            }
+        }
+
+        /* 自定义动画 */
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+        
+        @keyframes candle {
+            0% { transform: scaleY(1); }
+            100% { transform: scaleY(1.1); }
+        }
+        
+        @keyframes confetti {
+            0% { transform: translateY(-100vh) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(100vh) rotate(720deg); opacity: 0; }
+        }
+        
+        @keyframes snowfall {
+            0% { transform: translateY(-10px) rotate(0deg); }
+            100% { transform: translateY(100vh) rotate(360deg); }
+        }
+    </style>
+</head>
+
+<body class="bg-birthday-light min-h-screen overflow-x-hidden font-birthday">
+    <!-- 雪花背景 -->
+    <div id="snow-container" class="fixed top-0 left-0 w-full h-full pointer-events-none z-0"></div>
+
+    <!-- 主容器 -->
+    <div class="container mx-auto px-4 py-8 relative z-10">
+        <!-- 顶部标题 -->
+        <header class="text-center mb-8 mt-4">
+            <h1 class="text-[clamp(2rem,5vw,3.5rem)] font-bold text-birthday-pink text-shadow mb-2 animate-float">
+                生日快乐 🎉
+            </h1>
+            <p class="text-[clamp(1rem,2vw,1.25rem)] text-gray-700">愿你的每一天都充满阳光和喜悦</p>
+        </header>
+
+        <!-- 生日蛋糕区域 -->
+        <div class="flex justify-center items-center my-12 relative">
+            <!-- 蛋糕底座 -->
+            <div class="w-64 h-16 bg-birthday-purple rounded-t-full relative">
+                <!-- 蛋糕主体 -->
+                <div class="w-56 h-24 bg-birthday-pink rounded-t-full absolute bottom-0 left-4">
+                    <!-- 奶油装饰 -->
+                    <div class="flex justify-between px-4 mt-2">
+                        <div class="w-2 h-4 bg-white rounded-full"></div>
+                        <div class="w-2 h-4 bg-white rounded-full"></div>
+                        <div class="w-2 h-4 bg-white rounded-full"></div>
+                        <div class="w-2 h-4 bg-white rounded-full"></div>
+                        <div class="w-2 h-4 bg-white rounded-full"></div>
+                        <div class="w-2 h-4 bg-white rounded-full"></div>
+                        <div class="w-2 h-4 bg-white rounded-full"></div>
+                        <div class="w-2 h-4 bg-white rounded-full"></div>
+                        <div class="w-2 h-4 bg-white rounded-full"></div>
+                        <div class="w-2 h-4 bg-white rounded-full"></div>
+                    </div>
+
+                    <!-- 蜡烛 -->
+                    <div class="absolute top-[-30px] left-1/2 transform -translate-x-1/2">
+                        <div class="w-2 h-12 bg-birthday-yellow rounded animate-candle"></div>
+                        <!-- 火焰 -->
+                        <div id="flame"
+                            class="w-4 h-8 bg-gradient-to-b from-yellow-300 to-red-500 rounded-full absolute top-[-8px] left-[-4px] animate-pulse cursor-pointer">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 点击吹蜡烛提示 -->
+            <div id="blow-tip"
+                class="absolute top-0 right-0 bg-white/80 px-3 py-1 rounded-full text-sm text-gray-700 shadow-md">
+                点击蜡烛吹灭 🎊
+            </div>
+        </div>
+
+        <!-- 生日贺卡 -->
+        <div
+            class="max-w-2xl mx-auto bg-white rounded-2xl shadow-xl p-6 mb-12 transform transition-all duration-500 hover:scale-[1.02]">
+            <div class="border-4 border-birthday-pink rounded-xl p-6 relative overflow-hidden">
+                <div class="absolute top-2 right-2 text-birthday-yellow text-2xl animate-spin-slow">🎁</div>
+
+                <h2 class="text-2xl font-bold text-birthday-purple mb-4">致最特别的你</h2>
+
+                <p class="text-gray-700 mb-4 leading-relaxed">
+                    生日快乐！愿这个特别的日子里，所有美好的事物都围绕着你。愿你的愿望都能实现，梦想都能成真，每一天都充满欢笑和温暖。
+                </p>
+
+                <p class="text-gray-700 mb-6 leading-relaxed">
+                    感谢你的出现，让生活变得更加美好。新的一岁，愿你平安喜乐，万事顺意，永远保持童心和热爱！
+                </p>
+
+                <div class="text-right text-birthday-pink font-bold">
+                    爱你的朋友 ❤️
+                </div>
+            </div>
+        </div>
+
+        <!-- 祝福留言区 -->
+        <div class="max-w-2xl mx-auto bg-white rounded-2xl shadow-xl p-6 mb-12">
+            <h3 class="text-xl font-bold text-birthday-blue mb-4 flex items-center">
+                <i class="fa fa-comment-o mr-2"></i> 留下你的祝福
+            </h3>
+
+            <div class="mb-4">
+                <textarea id="wish-input"
+                    class="w-full p-3 border-2 border-birthday-blue/30 rounded-lg focus:outline-none focus:border-birthday-blue transition-colors resize-none h-32"
+                    placeholder="在这里写下对TA的生日祝福..."></textarea>
+            </div>
+
+            <button id="send-wish"
+                class="bg-birthday-blue text-white px-6 py-2 rounded-full hover:bg-blue-600 transition-colors flex items-center">
+                <i class="fa fa-paper-plane mr-2"></i> 发送祝福
+            </button>
+
+            <!-- 祝福列表 -->
+            <div id="wish-list" class="mt-6 space-y-3 max-h-64 overflow-y-auto">
+                <!-- 示例祝福 -->
+                <div class="bg-birthday-light/50 p-3 rounded-lg border-l-4 border-birthday-pink">
+                    <p class="font-bold">好朋友</p>
+                    <p>生日快乐！愿你年年有今日，岁岁有今朝，永远开心！</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- 音乐控制 -->
+        <div class="fixed bottom-6 right-6 bg-birthday-pink text-white p-3 rounded-full shadow-lg cursor-pointer z-20">
+            <i id="music-icon" class="fa fa-music text-xl"></i>
+            <audio id="birthday-music" loop>
+                <source src="https://actions.google.com/sounds/v1/holidays/happy_birthday_to_you.ogg" type="audio/ogg">
+                <source src="https://actions.google.com/sounds/v1/holidays/happy_birthday_to_you.mp3" type="audio/mpeg">
+            </audio>
+        </div>
+    </div>
+
+    <script>
+        // 雪花生成
+        function createSnow() {
+            const snowContainer = document.getElementById('snow-container');
+            const snowCount = 50;
+
+            for (let i = 0; i < snowCount; i++) {
+                const snow = document.createElement('div');
+                const size = Math.random() * 8 + 2;
+                const posX = Math.random() * 100;
+                const duration = Math.random() * 10 + 5;
+                const delay = Math.random() * 5;
+
+                snow.innerHTML = Math.random() > 0.5 ? '❄️' : '🎊';
+                snow.className = 'absolute text-white/80 animate-snow';
+                snow.style.left = `${posX}%`;
+                snow.style.top = '-10px';
+                snow.style.fontSize = `${size}px`;
+                snow.style.animationDuration = `${duration}s`;
+                snow.style.animationDelay = `${delay}s`;
+                snow.style.opacity = Math.random() * 0.8 + 0.2;
+
+                snowContainer.appendChild(snow);
+            }
+        }
+
+        // 吹蜡烛效果
+        function setupCandle() {
+            const flame = document.getElementById('flame');
+            const blowTip = document.getElementById('blow-tip');
+
+            flame.addEventListener('click', () => {
+                // 吹灭蜡烛
+                flame.classList.remove('animate-pulse');
+                flame.style.opacity = '0';
+                blowTip.textContent = '蜡烛吹灭啦 🎂';
+
+                // 播放吹蜡烛音效
+                const blowSound = new Audio('https://actions.google.com/sounds/v1/ambiences/wind_blowing_softly.ogg');
+                blowSound.volume = 0.5;
+                blowSound.play();
+
+                // 创建庆祝特效
+                createConfetti();
+            });
+        }
+
+        // 五彩纸屑特效
+        function createConfetti() {
+            const confettiCount = 100;
+
+            for (let i = 0; i < confettiCount; i++) {
+                const confetti = document.createElement('div');
+                const colors = ['#FF6B8B', '#FFD166', '#06D6A0', '#7928CA', '#FFFFFF'];
+                const size = Math.random() * 10 + 5;
+
+                confetti.className = 'fixed animate-confetti';
+                confetti.style.width = `${size}px`;
+                confetti.style.height = `${size}px`;
+                confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                confetti.style.left = `${Math.random() * 100}vw`;
+                confetti.style.top = `${Math.random() * 100}vh`;
+                confetti.style.borderRadius = Math.random() > 0.5 ? '50%' : '0';
+                confetti.style.animationDuration = `${Math.random() * 3 + 2}s`;
+
+                document.body.appendChild(confetti);
+
+                // 移除特效元素
+                setTimeout(() => {
+                    confetti.remove();
+                }, 5000);
+            }
+        }
+
+        // 祝福留言功能
+        function setupWishSystem() {
+            const wishInput = document.getElementById('wish-input');
+            const sendWishBtn = document.getElementById('send-wish');
+            const wishList = document.getElementById('wish-list');
+
+            sendWishBtn.addEventListener('click', () => {
+                const wishText = wishInput.value.trim();
+
+                if (wishText) {
+                    // 创建新祝福
+                    const wishItem = document.createElement('div');
+                    wishItem.className = 'bg-birthday-light/50 p-3 rounded-lg border-l-4 border-birthday-blue animate-float';
+                    wishItem.innerHTML = `
+                        <p class="font-bold">匿名祝福</p>
+                        <p>${wishText}</p>
+                    `;
+
+                    // 添加到列表顶部
+                    wishList.insertBefore(wishItem, wishList.firstChild);
+
+                    // 清空输入框
+                    wishInput.value = '';
+
+                    // 播放提示音
+                    const notifySound = new Audio('https://actions.google.com/sounds/v1/alarms/notification_sound.ogg');
+                    notifySound.volume = 0.3;
+                    notifySound.play();
+
+                    // 滚动到顶部
+                    wishList.scrollTop = 0;
+                }
+            });
+
+            // 按回车发送
+            wishInput.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter' && !e.shiftKey) {
+                    e.preventDefault();
+                    sendWishBtn.click();
+                }
+            });
+        }
+
+        // 音乐控制
+        function setupMusic() {
+            const musicIcon = document.getElementById('music-icon');
+            const birthdayMusic = document.getElementById('birthday-music');
+            let isPlaying = false;
+
+            musicIcon.addEventListener('click', () => {
+                if (isPlaying) {
+                    birthdayMusic.pause();
+                    musicIcon.classList.remove('fa-pause');
+                    musicIcon.classList.add('fa-music');
+                } else {
+                    birthdayMusic.play().catch(e => console.log('用户需要交互才能播放音频'));
+                    musicIcon.classList.remove('fa-music');
+                    musicIcon.classList.add('fa-pause');
+                }
+                isPlaying = !isPlaying;
+            });
+
+            // 页面点击时自动播放音乐
+            document.addEventListener('click', () => {
+                if (!isPlaying) {
+                    birthdayMusic.play().catch(() => { });
+                }
+            }, { once: true });
+        }
+
+        // 页面加载完成后初始化
+        window.addEventListener('DOMContentLoaded', () => {
+            createSnow();
+            setupCandle();
+            setupWishSystem();
+            setupMusic();
+
+            // 欢迎动画
+            setTimeout(() => {
+                createConfetti();
+            }, 1000);
+        });
+    </script>
+</body>
+
+</html>
